@@ -1,0 +1,19 @@
+#! /bin/bash
+
+set -xe
+
+CURRENT_TIME=`date +"%d-%m-%Y@%H:%M:%S"`
+BU_DIR=~/.local/share/bu
+
+[ -d $BU_DIR ] || mkdir -p $BU_DIR || (echo "Couldn't create '$BU_DIR'." ; exit 1)
+
+for TARGET in $*; do
+	BASENAME=$(basename "$TARGET")
+	NEWNAME="$BASENAME - $CURRENT_TIME"
+	if [ -e "$TARGET" ]; then
+		[ -d "$TARGET" ] && cp -r "$TARGET" "$BU_DIR/$NEWNAME"
+		[ -f "$TARGET" ] && cp "$TARGET" "$BU_DIR/$NEWNAME"
+	else
+		echo "Error: '$TARGET' doesn't exist."
+	fi
+done
