@@ -1,0 +1,13 @@
+#! /bin/bash
+
+sudo -u postgres psql
+
+SELECT current_user;
+CREATE DATABASE reservadito;
+\c reservas;
+CREATE ROLE reservadito WITH LOGIN PASSWORD 'pssw0rd';
+CREATE EXTENSION IF NOT EXISTS citext;
+EXIT
+
+
+psql -h localhost -p 5433 -U reservadito -d reservas
